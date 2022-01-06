@@ -20,7 +20,9 @@ build:
 requirements:
   host:
     - pip
-    - python >=3
+    - python
+    - wheel
+    - setuptools
   run:
     - python >=3
     - numpy
@@ -29,10 +31,13 @@ requirements:
 test:
   imports:
     - imageio
+    - imageio.config
   commands:
     - imageio_download_bin -h
     - imageio_remove_bin -h
     - pip check
+  requires:
+    - pip
 
 about:
   home: https://imageio.github.io
@@ -41,6 +46,7 @@ about:
   summary: A Python library for reading and writing image data
   license: BSD-2-Clause
   license_file: LICENSE
+  license_family: BSD
 
 extra:
   recipe-maintainers:
