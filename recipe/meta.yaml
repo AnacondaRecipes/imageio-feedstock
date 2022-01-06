@@ -24,7 +24,7 @@ requirements:
   run:
     - python >=3
     - numpy
-    - pillow
+    - pillow >=8.3.2
 
 test:
   imports:
@@ -32,6 +32,7 @@ test:
   commands:
     - imageio_download_bin -h
     - imageio_remove_bin -h
+    - pip check
 
 about:
   home: https://imageio.github.io
