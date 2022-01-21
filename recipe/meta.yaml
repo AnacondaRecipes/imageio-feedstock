@@ -1,5 +1,5 @@
-{% set version = "2.9.0" %}
-{% set sha256 = "52ddbaeca2dccf53ba2d6dec5676ca7bc3b2403ef8b37f7da78b7654bb3e10f0" %}
+{% set version = "2.14.0" %}
+{% set sha256 = "1a612b46c24805115701ed7c4e1f2d7feb53bb615d52bfef9713a6836e997bb1" %}
 
 package:
   name: imageio
