@@ -11,7 +11,7 @@ source:
 
 build:
   number: 0
-  noarch: python
+  skip: True  # [py<37]
   script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv
   entry_points:
     - imageio_download_bin = imageio.__main__:download_bin_main
@@ -24,7 +24,7 @@ requirements:
     - wheel
     - setuptools
   run:
-    - python >=3
+    - python >=3.7
     - numpy
     - pillow >=8.3.2
 
