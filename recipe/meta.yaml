@@ -1,13 +1,13 @@
-{% set version = "2.19.3" %}
-{% set sha256 = "0c9df80e42f2ee68bea92001e7fcf612aa149910efe040eb757f5ce323250ae1" %}
+{% set name = "imageio" %}
+{% set version = "2.26.0" %}
 
 package:
-  name: imageio
+  name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/i/imageio/imageio-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/imageio-{{ version }}.tar.gz
+  sha256: 169f1642cdb723133fe8fe901887f4f1b39bc036458c4664f1f9d256226ced35
 
 build:
   number: 0
@@ -44,9 +44,12 @@ about:
   doc_url: https://imageio.readthedocs.io
   dev_url: https://github.com/imageio/imageio
   summary: A Python library for reading and writing image data
-  license: BSD-2-Clause
+  description: |
+    Imageio is a Python library that provides an easy interface to read and write a wide range of 
+    image data, including animated images, video, volumetric data, and scientific formats. 
   license_file: LICENSE
   license_family: BSD
+  license: BSD-2-Clause
 
 extra:
   recipe-maintainers:
