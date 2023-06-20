@@ -1,18 +1,18 @@
 {% set name = "imageio" %}
-{% set version = "2.26.0" %}
+{% set version = "2.31.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/imageio-{{ version }}.tar.gz
-  sha256: 169f1642cdb723133fe8fe901887f4f1b39bc036458c4664f1f9d256226ced35
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name|lower }}-{{ version }}.tar.gz
+  sha256: f8436a02af02fd63f272dab50f7d623547a38f0e04a4a73e2b02ae1b8b180f27
 
 build:
   number: 0
   skip: True  # [py<37]
-  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed -vvv
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - imageio_download_bin = imageio.__main__:download_bin_main
     - imageio_remove_bin = imageio.__main__:remove_bin_main
