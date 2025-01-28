@@ -1,5 +1,5 @@
 {% set name = "imageio" %}
-{% set version = "2.33.1" %}
+{% set version = "2.37.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name|lower }}-{{ version }}.tar.gz
-  sha256: 78722d40b137bd98f5ec7312119f8aea9ad2049f76f434748eb306b6937cc1ce
+  sha256: 71b57b3669666272c818497aebba2b4c5f20d5b37c81720e5e1a56d59c492996
 
 build:
   number: 0
-  skip: True  # [py<38]
+  skip: True  # [py<39]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - imageio_download_bin = imageio.__main__:download_bin_main
@@ -24,7 +24,7 @@ requirements:
     - wheel
     - setuptools
   run:
-    - python 
+    - python
     - numpy
     - pillow >=8.3.2
 
