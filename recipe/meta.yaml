@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name|lower }}-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 0212ef2727ac9caa5ca4b2c75ae89454312f440a756fcfc8ef1993e718f50f8a
 
 build:
@@ -21,28 +21,42 @@ requirements:
   host:
     - pip
     - python
-    - wheel
     - setuptools >=61.0
+    # - numpy {{ numpy }}
   run:
     - python
     - numpy
     - pillow >=8.3.2
-  run_constrained:
-    - numpy >2
+
+# imageio-ffmpeg package is not available in channel
+# E       KeyError: 'imageio.plugins.ffmpeg'
+{% set deselect_tests = "--deselect=tests/test_format.py::test_preferring_arbitrary" %}
+# E       AssertionError: assert 'NPZ' == 'FFMPEG'
+{% set deselect_tests = deselect_tests + " --deselect=tests/test_format.py::test_missing_format" %}
 
 test:
+  source_files:
+    - tests
   imports:
     - imageio
     - imageio.config
+    - imageio.core
+    - imageio.plugins
   commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v tests {{ deselect_tests }}
     - imageio_download_bin -h
     - imageio_remove_bin -h
-    - pip check
   requires:
     - pip
+    - pytest
+    - fsspec
+    - aiohttp
+    - requests
 
 about:
-  home: https://imageio.github.io
+  home: https://github.com/imageio/imageio
   doc_url: https://imageio.readthedocs.io
   dev_url: https://github.com/imageio/imageio
   summary: A Python library for reading and writing image data
