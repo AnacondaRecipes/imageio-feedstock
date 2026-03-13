@@ -1,18 +1,13 @@
 {% set name = "imageio" %}
-{% set version = "2.37.3" %}
-{% set deselect_tests = "--deselect=tests/test_format.py::test_preferring_arbitrary" %}
-{% set deselect_tests = 'deselect_tests + " --deselect=tests/test_format.py::test_missing_format"' %}
+{% set version = "2.37.2" %}
 
-# imageio-ffmpeg package is not available in channel
-# E       KeyError: 'imageio.plugins.ffmpeg'
-# E       AssertionError: assert 'NPZ' == 'FFMPEG'
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: bbb37efbfc4c400fcd534b367b91fcd66d5da639aaa138034431a1c5e0a41451
+  sha256: 0212ef2727ac9caa5ca4b2c75ae89454312f440a756fcfc8ef1993e718f50f8a
 
 build:
   number: 0
@@ -32,6 +27,12 @@ requirements:
     - python
     - numpy
     - pillow >=8.3.2
+
+# imageio-ffmpeg package is not available in channel
+# E       KeyError: 'imageio.plugins.ffmpeg'
+{% set deselect_tests = "--deselect=tests/test_format.py::test_preferring_arbitrary" %}
+# E       AssertionError: assert 'NPZ' == 'FFMPEG'
+{% set deselect_tests = deselect_tests + " --deselect=tests/test_format.py::test_missing_format" %}
 
 test:
   source_files:
