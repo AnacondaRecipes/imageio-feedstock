@@ -51,7 +51,7 @@ test:
     - rm -rf .test_images  # [unix]
     - rd /s /q .test_images  # [win]
     
-    - pytest -v tests {{ deselect_tests }}
+    - pytest -v -p no:cacheprovider tests {{ deselect_tests }}
     - imageio_download_bin -h
     - imageio_remove_bin -h
   requires:
