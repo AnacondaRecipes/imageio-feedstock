@@ -46,7 +46,7 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    - pytest -v tests {{ deselect_tests }}
+    - pytest -vv tests {{ deselect_tests }}
     - imageio_download_bin -h
     - imageio_remove_bin -h
   requires:
