@@ -59,6 +59,7 @@ test:
     - fsspec
     - aiohttp
     - requests
+    - git
 
 about:
   home: https://github.com/imageio/imageio
