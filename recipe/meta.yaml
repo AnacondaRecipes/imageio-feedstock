@@ -46,6 +46,11 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+
+    # RuntimeError: Cache directory is corrupt. Delete `.test_images` at project root.
+    - rm -rf .test_images  # [unix]
+    - rd /s /q .test_images  # [win]
+    
     - pytest -v tests {{ deselect_tests }}
     - imageio_download_bin -h
     - imageio_remove_bin -h
