@@ -47,10 +47,10 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
 
-    - python -c "from pathlib import Path; d = Path('tests/conftest.py').resolve().parents[1] / '.test_images'; print('exists:', d.exists(), 'path:', d)"
-    - pytest -vv tests --test-images https://github.com/imageio/imageio-binaries.git {{ deselect_tests }}
+    #- python -c "from pathlib import Path; d = Path('tests/conftest.py').resolve().parents[1] / '.test_images'; print('exists:', d.exists(), 'path:', d)"
+    #- pytest -vv tests --test-images https://github.com/imageio/imageio-binaries.git {{ deselect_tests }}
     
-    #- pytest -v tests {{ deselect_tests }}
+    - pytest -v tests {{ deselect_tests }}
     - imageio_download_bin -h
     - imageio_remove_bin -h
   requires:
