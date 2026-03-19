@@ -47,11 +47,10 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
 
-    # RuntimeError: Cache directory is corrupt. Delete `.test_images` at project root.
-    - rm -rf .test_images  # [unix]
-    - rd /s /q .test_images  # [win]
+    - python -c "from pathlib import Path; d = Path('tests/conftest.py').resolve().parents[1] / '.test_images'; print('exists:', d.exists(), 'path:', d)"
+    - pytest -v tests --test-images https://github.com/imageio/imageio-binaries.git {{ deselect_tests }}
     
-    - pytest -v -p no:cacheprovider tests {{ deselect_tests }}
+    #- pytest -v tests {{ deselect_tests }}
     - imageio_download_bin -h
     - imageio_remove_bin -h
   requires:
