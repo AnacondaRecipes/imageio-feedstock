@@ -1,5 +1,5 @@
 {% set name = "imageio" %}
-{% set version = "2.37.2" %}
+{% set version = "2.37.3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 0212ef2727ac9caa5ca4b2c75ae89454312f440a756fcfc8ef1993e718f50f8a
+  sha256: bbb37efbfc4c400fcd534b367b91fcd66d5da639aaa138034431a1c5e0a41451
 
 build:
   number: 0
-  skip: true  # [py<39]
+  skip: true  # [py<310]
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   entry_points:
     - imageio_download_bin = imageio.__main__:download_bin_main
@@ -28,9 +28,10 @@ requirements:
     - numpy
     - pillow >=8.3.2
 
+{% set deselect_tests = "" %}
 # imageio-ffmpeg package is not available in channel
 # E       KeyError: 'imageio.plugins.ffmpeg'
-{% set deselect_tests = "--deselect=tests/test_format.py::test_preferring_arbitrary" %}
+{% set deselect_tests = deselect_tests + " --deselect=tests/test_format.py::test_preferring_arbitrary" %}
 # E       AssertionError: assert 'NPZ' == 'FFMPEG'
 {% set deselect_tests = deselect_tests + " --deselect=tests/test_format.py::test_missing_format" %}
 
@@ -45,7 +46,7 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    - pytest -v tests {{ deselect_tests }}
+    - pytest -vv tests {{ deselect_tests }}
     - imageio_download_bin -h
     - imageio_remove_bin -h
   requires:
@@ -54,6 +55,7 @@ test:
     - fsspec
     - aiohttp
     - requests
+    - git
 
 about:
   home: https://github.com/imageio/imageio
